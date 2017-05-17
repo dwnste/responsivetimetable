@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Responsive Time Table</title>
+		<link rel="stylesheet" href="./normalize.css">
+		<link rel="stylesheet" href="./main.css">
+	</head>
+	<body>
+		<div class ="container" ng-controller="TableController as vm" id="app" ng-app="spa">
+			<div class="menu">
+				<form role="form" ng-submit="addItem()">
+					<input type="time"
+						ng-model="time" placeholder="09:30">
+					<input type="text" placeholder="Название предмета" maxlength="24" ng-model="newSubject">
+					<select name="" id="" ng-model="daySelector">
+						<option value="Понедельник">Понедельник</option>
+						 <option value="Вторник">Вторник</option>
+						 <option value="Среда">Среда</option>
+						 <option value="Четверг">Четверг</option>
+						 <option value="Пятница">Пятница</option>
+					</select>
+					<input type="submit" value="Добавить"/>
+					<button type="button" ng-click="checkMode();">
+					Удаление
+					</button>
+				</form>
+			</div>
+			<div class="table">
+				<table class="timetable">
+					<thead>
+						<tr>
+							<th>Время</th>
+							<th ng-repeat="column in columns  | limitTo : rowsLimit : counter">{{column}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in data | orderBy : 'time'">
+							<td><button ng-show="editingMode" ng-click="index = data.indexOf(item); data.splice(index, 1);">x</button>{{item.time | date : 'HH:mm' : '-0000'}}</td>
+							<td class="row" ng-repeat="column in columns | limitTo : rowsLimit : counter">
+								<a href="#" ng-show="!showUpdate" ng-click="newValue = item[column]; showUpdate = true">{{item[column]}}</a>
+								<div ng-show="showUpdate" ><input type="text" size="14" maxlength="24" ng-model="newValue"> <span><button type="button" ng-click="item[column] = newValue; addToLocalStorage(); showUpdate = false;">
+									Ок
+								</button></span>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="scrollers">
+				<div ng-hide="hideIfTrue">
+					<button class="btn btn-default" ng-click="vm.goBack()">Назад</button><button class="btn btn-default" ng-click="vm.goForward()">Далее</button>
+				</div>
+			</div>
+			<p ng-hide="hideIfUsed">Добавить тестовые данные?
+			<button ng-click="addPreData(); hideIfUsed=true;">Да</button>
+			</p>
+		</div>
+		<script src="/dist/index.js"></script>
+	</body>
+</html>

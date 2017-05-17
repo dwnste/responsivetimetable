@@ -1,0 +1,32 @@
+{
+  "name": "responsivetimetable",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dwnste/responsivetimetable.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dwnste/responsivetimetable/issues"
+  },
+  "homepage": "https://github.com/dwnste/responsivetimetable#readme",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "css-loader": "^0.28.1",
+    "postcss-cssnext": "^2.11.0",
+    "postcss-loader": "^2.0.5",
+    "style-loader": "^0.17.0",
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "^2.4.5"
+  },
+  "dependencies": {
+    "angular": "^1.5.8"
+  }
+}
