@@ -20,13 +20,12 @@
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "css-loader": "^0.28.1",
+    "ngstorage": "^0.3.11",
     "postcss-cssnext": "^2.11.0",
     "postcss-loader": "^2.0.5",
     "style-loader": "^0.17.0",
     "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.4.5"
-  },
-  "dependencies": {
+    "webpack-dev-server": "^2.4.5",
     "angular": "^1.5.8"
   }
 }

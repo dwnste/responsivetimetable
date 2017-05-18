@@ -3,8 +3,6 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Responsive Time Table</title>
-		<link rel="stylesheet" href="./normalize.css">
-		<link rel="stylesheet" href="./main.css">
 	</head>
 	<body>
 		<div class ="container" ng-controller="TableController as vm" id="app" ng-app="spa">
@@ -50,7 +48,7 @@
 			</div>
 			<div class="scrollers">
 				<div ng-hide="hideIfTrue">
-					<button class="btn btn-default" ng-click="vm.goBack()">Назад</button><button class="btn btn-default" ng-click="vm.goForward()">Далее</button>
+					<button class="btn btn-default" ng-click="goBack()">Назад</button><button class="btn btn-default" ng-click="goForward()">Далее</button>
 				</div>
 			</div>
 			<p ng-hide="hideIfUsed">Добавить тестовые данные?

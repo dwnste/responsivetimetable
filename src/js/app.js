@@ -1,5 +1,6 @@
-import 'angular';
+import angular from 'angular';
 import '../css/main.css';
+import ngStorage from 'ngstorage';
 var app = angular.module('spa', ['ngStorage']);
 app.controller('TableController', ['$scope', '$window', '$localStorage', '$filter', function TableController($scope, $window, $localStorage, $filter) {
 	$scope.rawsLimit = 0;
