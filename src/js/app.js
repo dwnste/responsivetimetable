@@ -19,16 +19,16 @@ app.controller('TableController', ['$scope', '$window', '$localStorage', '$filte
 		$http({
 			method: 'GET',
 			url: '../test.json'
-		}).then(function successCallback(response) {
-				let parsedResponse = angular.fromJson(response['data']['data']);
-				let array = Object.keys(parsedResponse).map(function(k) {
+		}).then((response) => {
+				const parsedResponse = angular.fromJson(response['data']['data']);
+				
+				const array = Object.keys(parsedResponse).map(function(k) {
         			return parsedResponse[k];
     			});
+
 				$scope.data = [];
 				$scope.data = array;
 				$scope.addToLocalStorage();
-			}, function errorCallback(response) {
-				throw response;
 			});
 	};
 
@@ -54,45 +54,32 @@ app.controller('TableController', ['$scope', '$window', '$localStorage', '$filte
 	};
 //Показать предыдущие
 	$scope.goForward = () => {
-		if ($scope.rowsLimit == 3) {
-			if ($scope.counter < $scope.columns.length - 3) {
-				$scope.counter++;
-			}
-		} else if ($scope.rowsLimit == 4){
-			if ($scope.counter < $scope.columns.length - 4) {
-				$scope.counter++;
-			}
-		} else if ($scope.rowsLimit == 1){
-			if ($scope.counter < $scope.columns.length - 1) {
-				$scope.counter++;
-			}
-		};
+		if ($scope.counter < ($scope.columns.length - $scope.rowsLimit)) {
+			$scope.counter++;
+		}
 	};
 //Добавление новой строки в таблицу
 	$scope.addItem = () => {
-		if (($scope.time != null) & ($scope.newSubject !='')){ //в input time и input text не пусто
-			var filteredTime = $filter('date')($scope.time, 'HH:mm');
-			var a = {};
+		if (($scope.time !== null) && ($scope.newSubject !== '')){ //в input time и input text не пусто
+			const filteredTime = $filter('date')($scope.time, 'HH:mm');
+			const a = {};
 			a[$scope.daySelector] = $scope.newSubject;//данные в выбранный день недели пустого массива
 			a['time'] = timeToMilli(filteredTime); //время в секундах в новый пустой массив
-			var found = $filter('filter')($scope.data, {time: a['time']}, true);
+			const found = $filter('filter')($scope.data, {time: a['time']}, true);
 			if (found.length) { //если элемент уже существует
 				$filter('filter')($scope.data, {time: a['time']}, true)[0][$scope.daySelector] = $scope.newSubject; //поиск и запись/перезапись
-				$scope.time ='';
-				$scope.newSubject ='';
 			} else { //если не существует, просто push
 				$scope.data.push(a);
-				$scope.time ='';
-				$scope.newSubject ='';
-			};
+			}
+			$scope.time ='';
+			$scope.newSubject ='';
 		} else { //если какая-то из форм не заполнена
 				console.log('Information in form is incorrect');
 		};
 	};
 //Включение/выключение режима редактирования
 	$scope.checkMode = () => {
-		($scope.editingMode == false) ?
-			$scope.editingMode = true : $scope.editingMode = false;
+		$scope.editingMode = !$scope.editingMode
 	};
 //Получение ширины окна и запись в $scope.width
 	$scope.updateWidth = () => {
@@ -112,11 +99,7 @@ app.controller('TableController', ['$scope', '$window', '$localStorage', '$filte
 	};
 //Если количество столбцов 5, то прокрутка не нужна
 	$scope.hideScrollers = () => {
-		if ($scope.rowsLimit >= 5){
-			$scope.hideIfTrue = true;
-		} else {
-			$scope.hideIfTrue = false;
-		}
+		$scope.hideIfTrue = $scope.rowsLimit >= 5;
 	};
 //Чтобы получить количество столбцов и разрешение, когда окно загрузилось
 	$scope.updateWidth();
