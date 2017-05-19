@@ -13,10 +13,9 @@ app.controller('TableController', ['$scope', '$window', '$localStorage', '$filte
 	$scope.daySelector = 'Понедельник';
 	$scope.newSubject = '';
 	$scope.editingMode = false; //режим удаления строк
-	
+
 //Заполнить тестовыми данными
 	$scope.addPreData = () => {
-		$scope.data = [];
 		$http({
 			method: 'GET',
 			url: '../test.json'
@@ -25,8 +24,9 @@ app.controller('TableController', ['$scope', '$window', '$localStorage', '$filte
 				let array = Object.keys(parsedResponse).map(function(k) {
         			return parsedResponse[k];
     			});
+				$scope.data = [];
 				$scope.data = array;
-				$localStorage.tableData = $scope.data;
+				$scope.addToLocalStorage();
 			}, function errorCallback(response) {
 				throw response;
 			});
@@ -35,7 +35,7 @@ app.controller('TableController', ['$scope', '$window', '$localStorage', '$filte
 
 //Добавить в localStorage данные из таблицы
 	$scope.addToLocalStorage = () => {
-		$localStorage.tableData = []; // хз зачем я тут это делаю
+		$localStorage.tableData = [];
 		$localStorage.tableData = $scope.data;
 	};
 //Загрузить данные из localStorage
